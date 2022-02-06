@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import './App.css';
 import P from 'prop-types';
 
-const Button = React.memo(function Button({ incrementButton }) {
+const Button = ({ incrementButton }) => {
   return <button onClick={() => incrementButton(10)}>+</button>;
-});
+};
 
 Button.propTypes = {
   incrementButton: P.func,
@@ -18,10 +18,14 @@ function App() {
     setCounter((c) => c + num);
   }, []);
 
+  const btn = useMemo(() => {
+    return <Button incrementButton={incrementCounter}>cont 1 = +</Button>;
+  }, [incrementCounter]);
+
   return (
     <div className="App">
       <h1>Contador 1: {counter}</h1>
-      <Button incrementButton={incrementCounter}>cont 1 = +</Button>
+      {btn}
     </div>
   );
 }
